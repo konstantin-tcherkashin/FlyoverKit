@@ -12,6 +12,7 @@
 		3D2A4E252857A0ED00E454D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2A4E242857A0ED00E454D6 /* Assets.xcassets */; };
 		3D85E3B0286711B200CDDC8F /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D85E3AF286711B200CDDC8F /* Location.swift */; };
 		3DCB60562857A10500336B67 /* FlyoverKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3DCB60552857A10500336B67 /* FlyoverKit */; };
+		B564D6892A1599EC00C73421 /* MultiPointDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B564D6882A1599EC00C73421 /* MultiPointDemoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		3D2A4E242857A0ED00E454D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D85E3AF286711B200CDDC8F /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		3DCB60532857A0FF00336B67 /* FlyoverKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FlyoverKit; path = ..; sourceTree = "<group>"; };
+		B564D6882A1599EC00C73421 /* MultiPointDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPointDemoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				3D2A4E202857A0ED00E454D6 /* App.swift */,
 				3D2A4E222857A0ED00E454D6 /* ContentView.swift */,
+				B564D6882A1599EC00C73421 /* MultiPointDemoView.swift */,
 				3D85E3AF286711B200CDDC8F /* Location.swift */,
 				3D2A4E242857A0ED00E454D6 /* Assets.xcassets */,
 			);
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B564D6892A1599EC00C73421 /* MultiPointDemoView.swift in Sources */,
 				3D2A4E232857A0ED00E454D6 /* ContentView.swift in Sources */,
 				3D85E3B0286711B200CDDC8F /* Location.swift in Sources */,
 				3D2A4E212857A0ED00E454D6 /* App.swift in Sources */,

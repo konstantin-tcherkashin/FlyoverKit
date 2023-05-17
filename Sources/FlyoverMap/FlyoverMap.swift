@@ -1,24 +1,44 @@
 import MapKit
 import SwiftUI
+import Combine
 
 // MARK: - FlyoverMap
+
+extension FlyoverPlaybackSequence {
+    public struct Point {
+        let coordinate: CLLocationCoordinate2D
+        /// The Flyover Configuration
+        let configuration: Flyover.Configuration
+
+        public init(coordinate: CLLocationCoordinate2D, configuration: Flyover.Configuration) {
+            self.coordinate = coordinate
+            self.configuration = configuration
+        }
+    }
+
+    public static func singular(coordinate: CLLocationCoordinate2D, configuration: Flyover.Configuration) -> Self {
+        .init(points: [
+            .init(coordinate: coordinate, configuration: configuration)
+        ])
+    }
+}
 
 /// A FlyoverMap
 public struct FlyoverMap {
     
     // MARK: Properties
-    
+
     /// Bool value if Flyover is started
     private let isStarted: Bool
     
-    /// The Coordinate
-    private let coordinate: CLLocationCoordinate2D
-
-    /// The Flyover Configuration
-    private let configuration: Flyover.Configuration
-    
     /// The MapType
     private let mapType: MKMapType
+
+    /// An object which controls playback e.g. switching between coordinates
+    @ObservedObject private var player: FlyoverSequencePlayer
+
+    /// A sequence of locations to be played by 'player: FlyoverSequencePlayer'
+    private let sequence: FlyoverPlaybackSequence
     
     /// A closure to update the underlying FlyoverMapView
     private let updateMapView: ((FlyoverMapView) -> Void)?
@@ -40,8 +60,22 @@ public struct FlyoverMap {
         updateMapView: ((FlyoverMapView) -> Void)? = nil
     ) {
         self.isStarted = isStarted
-        self.coordinate = coordinate
-        self.configuration = configuration
+        self.sequence = .singular(coordinate: coordinate, configuration: configuration)
+        self.player = .init(sequence: sequence)
+        self.mapType = mapType
+        self.updateMapView = updateMapView
+    }
+
+
+    public init(
+        isStarted: Bool = true,
+        sequence: FlyoverPlaybackSequence,
+        mapType: MKMapType = .standard,
+        updateMapView: ((FlyoverMapView) -> Void)? = nil
+    ) {
+        self.isStarted = isStarted
+        self.sequence = sequence
+        self.player = .init(sequence: sequence)
         self.mapType = mapType
         self.updateMapView = updateMapView
     }
@@ -102,7 +136,6 @@ extension FlyoverMap: UIViewRepresentable {
         _ flyoverMapView: FlyoverMapView,
         context: Context
     ) {
-        // Update map type
         flyoverMapView.mapType = self.mapType
         // Update map view if needed
         self.updateMapView?(flyoverMapView)
@@ -110,8 +143,8 @@ extension FlyoverMap: UIViewRepresentable {
         if self.isStarted {
             // Start Flyover
             flyoverMapView.startFlyover(
-                at: self.coordinate,
-                configuration: self.configuration
+                at: self.player.currentPoint.coordinate,
+                configuration: self.player.currentPoint.configuration
             )
         } else {
             // Stop Flyover

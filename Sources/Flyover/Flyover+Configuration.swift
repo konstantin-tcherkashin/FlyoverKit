@@ -10,6 +10,8 @@ public extension Flyover {
         
         // MARK: Properties
 
+        public var playbackDuration: Double = 0
+
         /// Camera change animation when changing coordinates
         public var animateLocationChanges: Bool
 
@@ -39,6 +41,7 @@ public extension Flyover {
         ///   - pitch: The viewing angle of the Flyover, measured in degrees
         ///   - heading: The heading of the Flyover, measured in degrees, relative to true north
         public init(
+            playbackDuration: Double = 0,
             animateLocationChanges: Bool = false,
             animationDuration: TimeInterval = 1,
             animationCurve: UIView.AnimationCurve = .linear,
@@ -46,6 +49,7 @@ public extension Flyover {
             pitch: Parameter<Double>,
             heading: Parameter<CLLocationDirection>
         ) {
+            self.playbackDuration = playbackDuration
             self.animateLocationChanges = animateLocationChanges
             self.animationDuration = animationDuration
             self.animationCurve = animationCurve
