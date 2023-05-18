@@ -74,6 +74,7 @@ public struct FlyoverMap {
     public init(
         isStarted: Bool = true,
         sequence: FlyoverPlaybackSequence,
+        playerIndex: Int = 0,
         mapType: MKMapType = .standard,
         updateMapView: ((FlyoverMapView) -> Void)? = nil,
         playerIndexChanged: ((Int) -> Void)? = nil
@@ -84,6 +85,8 @@ public struct FlyoverMap {
         self.mapType = mapType
         self.updateMapView = updateMapView
         self.playerIndexChanged = playerIndexChanged
+
+        self.player.index = playerIndex
 
         player.$index.sink {
             playerIndexChanged?($0)
