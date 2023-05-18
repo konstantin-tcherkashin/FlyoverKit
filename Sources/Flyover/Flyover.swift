@@ -54,14 +54,20 @@ public extension Flyover {
         }
         // Check if coordinate has changed
         if self.context?.matches(with: coordinate) == false {
-            // Change camera to new coordinate without animation
-            let newCamera = MKMapCamera(
-                lookingAtCenter: coordinate,
-                fromDistance: mapView.camera.centerCoordinateDistance,
-                pitch: mapView.camera.pitch,
-                heading: mapView.camera.heading
-            )
-            mapView.setCamera(newCamera, animated: configuration.animateLocationChanges)
+            if configuration.animateLocationChanges {
+                Animator().start(duration: 3, curve: .linear) {
+                    mapView.centerCoordinate = coordinate
+                } completion: { }
+            } else {
+                let newCamera = MKMapCamera(
+                    lookingAtCenter: coordinate,
+                    fromDistance: mapView.camera.centerCoordinateDistance,
+                    pitch: mapView.camera.pitch,
+                    heading: mapView.camera.heading
+                )
+                mapView.setCamera(newCamera, animated: false)
+            }
+
         }
         // Set Context
         self.context = .init(
