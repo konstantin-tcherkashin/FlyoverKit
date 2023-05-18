@@ -34,7 +34,7 @@ final class FlyoverSequencePlayer: ObservableObject {
         if isPlaying {
             restart()
         } else {
-            pause()
+            stop()
         }
     }
 
