@@ -65,7 +65,7 @@ public struct FlyoverMap {
     ) {
         self.isStarted = isStarted
         self.sequence = .singular(coordinate: coordinate, configuration: configuration)
-        self.player = .init(sequence: sequence)
+        self.player = .init(sequence: sequence, isPlaying: isStarted)
         self.mapType = mapType
         self.updateMapView = updateMapView
     }
@@ -81,7 +81,7 @@ public struct FlyoverMap {
     ) {
         self.isStarted = isStarted
         self.sequence = sequence
-        self.player = .init(sequence: sequence)
+        self.player = .init(sequence: sequence, isPlaying: isStarted)
         self.mapType = mapType
         self.updateMapView = updateMapView
         self.playerIndexChanged = playerIndexChanged

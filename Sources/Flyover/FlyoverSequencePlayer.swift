@@ -27,9 +27,11 @@ final class FlyoverSequencePlayer: ObservableObject {
         sequence.points[index]
     }
 
-    init(sequence: FlyoverPlaybackSequence) {
+    init(sequence: FlyoverPlaybackSequence, isPlaying: Bool) {
         self.sequence = sequence
-        restart()
+        if isPlaying {
+            restart()
+        }
     }
 
     func restart() {
