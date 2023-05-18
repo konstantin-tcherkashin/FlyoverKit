@@ -42,6 +42,10 @@ public struct FlyoverMap {
     
     /// A closure to update the underlying FlyoverMapView
     private let updateMapView: ((FlyoverMapView) -> Void)?
+
+    /// A closure to notify when player goes to the next item
+    private var playerIndexChanged: ((Int) -> Void)?
+
     
     // MARK: Initializer
     
@@ -71,13 +75,19 @@ public struct FlyoverMap {
         isStarted: Bool = true,
         sequence: FlyoverPlaybackSequence,
         mapType: MKMapType = .standard,
-        updateMapView: ((FlyoverMapView) -> Void)? = nil
+        updateMapView: ((FlyoverMapView) -> Void)? = nil,
+        playerIndexChanged: ((Int) -> Void)? = nil
     ) {
         self.isStarted = isStarted
         self.sequence = sequence
         self.player = .init(sequence: sequence)
         self.mapType = mapType
         self.updateMapView = updateMapView
+        self.playerIndexChanged = playerIndexChanged
+
+        player.$index.sink {
+            playerIndexChanged?($0)
+        }.store(in: &player.bag)
     }
     
 }

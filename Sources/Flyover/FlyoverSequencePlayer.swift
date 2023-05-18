@@ -17,11 +17,11 @@ public struct FlyoverPlaybackSequence {
 }
 
 final class FlyoverSequencePlayer: ObservableObject {
-    @Published private var index: Int = 0
+    @Published var index: Int = 0
     let sequence: FlyoverPlaybackSequence
 
     private var timer: Timer.TimerPublisher?
-    private var bag = Set<AnyCancellable>()
+    var bag = Set<AnyCancellable>()
 
     var currentPoint: FlyoverPlaybackSequence.Point {
         sequence.points[index]
